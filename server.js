@@ -29,20 +29,9 @@ app.get("/", (req, res) => {
   res.send("Welcome to our notes API!");
 });
 
-
  
 app.use('/api/notes', noteRoutes);
 app.use('/api/users', userRoutes);
-
-// app.post("/api/users", async (req, res) => {
-
-//   try {
-//     const response = await User.create(req.body);
-//     res.status(201).json(response);
-//   } catch (err) {
-//     res.status(500).send("Something went wrong: " + err.message);
-//   }
-// });
 
  
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
