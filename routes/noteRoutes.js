@@ -26,14 +26,17 @@ router.post('/', async (req, res) => {
   try {
     const note = await Note.create({
       ...req.body,
+
       // The user ID needs to be added here
+      user: req.user._id, // add the authenticated owner
+
     });
     res.status(201).json(note);
   } catch (err) {
     res.status(400).json(err);
   }
 });
- 
+
 // PUT /api/notes/:id - Update a note
 router.put('/:id', async (req, res) => {
   try {
