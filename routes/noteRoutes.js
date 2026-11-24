@@ -11,23 +11,28 @@ router.use(authMiddleware);
 // Filter “Get All Notes”: Modify the GET / route. Instead of returning all notes in the database, it should now only return the notes where the user field matches the _id of the currently authenticated user (req.user._id).
 // GET /api/notes - Get all notes for the logged-in user
 // THIS IS THE ROUTE THAT CURRENTLY HAS THE FLAW
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
   try {
 
     // const notes = await Note.find({}); This currently finds all notes in the database.  
     //===========================================================
-    // It should only find notes owned by the logged in user.
+    // GET /:id route note, apply the same ownership check there as well
     //===========================================================
-    const notes = await Note.find({ user: req.user._id });
+    const notes = await Note.findById(req.params.id);
 
-    if (note.user != req.user._id) {
+    if (!notes) {
+      return res.status(404).json({ message: 'No note found with this id!' });
+
+    }
+
+    if (notes.user != req.user._id) {
       return res.status(403).json({ message: 'User is not authorized to access this note.' });
     }
 
-
     res.json(notes);
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 });
