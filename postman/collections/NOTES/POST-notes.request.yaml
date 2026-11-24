@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:3001/api/notes
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"title\": \"My First Note\",\r
+
+    \  \"content\": \"Today I learned how to use roles.\",\r
+
+    \  \"user\": \"ana123\"\r
+
+    }"
+order: 2000
